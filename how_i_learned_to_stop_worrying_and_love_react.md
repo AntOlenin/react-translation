@@ -152,5 +152,27 @@ React.render(<Hello name="World" />, document.getElementById('container'));  `
 Хорошо, но что за `<div>`? Это не JavaScript! Точно не он.
 
 
+#### Ваш новый друг, JSX
+
+
+Вообще-то этот код написан на JSX. упер набор JavaScript, который включает в себя синтаксис скобок для определения компонентов. Код выше, когда скомпилируется в JavaScript на самом деле станет таким:
+
+`var Hello = React.createClass({displayName: "Hello",  
+    render: function() {
+        return React.createElement("div", null, "Hello ", this.props.name);
+    }
+});
+
+React.render(React.createElement(Hello, {name: "World"}), document.getElementById('container'));  `
+
+
+Вы заметили вызовы `createElement`? Эти объекты составляют реализацию виртуального DOM.
+
+Довольно просто: React сначала собирает всю структуру вашего приложения в памяти, используя эти объекты. Затем преобразует эту структуру в актуальные узлы DOM и вставляет их в DOM вашего браузера.
+
+Хорошо, но какой смысл писать наш HTML с этими странными функциями `createElement`.
+
+
+#### Виртуальный DOM - быстрый
 
 
