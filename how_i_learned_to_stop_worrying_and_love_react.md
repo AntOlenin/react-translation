@@ -44,7 +44,32 @@ Data binding - это возможность держать ваши модел�
 Давайте посмотрим, как это работает на приктике в некоторых известных фреймворках.
 
 
+#### Knockout
 
+Knockaut выступает за [MVVM (Model-View-ViewModel) подход](http://knockoutjs.com/documentation/observables.html) и помогает реализовать часть View:
+
+`// View (a template)
+<p>First name: <input data-bind="value: firstName" /></p>  
+<p>Last name: <input data-bind="value: lastName" /></p>  
+<h2>Hello, <span data-bind="text: fullName"> </span>!</h2>
+
+// ViewModel (diplay data... and logic?)
+var ViewModel = function(first, last) {  
+  this.firstName = ko.observable(first);
+  this.lastName = ko.observable(last);
+
+  this.fullName = ko.pureComputed(function() {
+      // Knockout tracks dependencies automatically. It knows that fullName depends on firstName and lastName, because these get called when evaluating fullName.
+      return this.firstName() + " " + this.lastName();
+  }, this);
+};`
+
+
+И вуаля. Изменение значения любого из инпутов будет провоцировать изменение в span. Вы никогда не писали код для его подключения. Классно да?
+
+Но подождите, что насчет того что модель - это единственный источник истины? Откуда ViewModel должна получить свое состояние? Откуда она знает что модель изменилась? Интересные вопросы.
+
+ 
 
 
 
