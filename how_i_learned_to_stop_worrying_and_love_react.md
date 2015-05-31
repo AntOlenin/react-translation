@@ -70,6 +70,36 @@ var ViewModel = function(first, last) {
 Но подождите, что насчет того что модель - это единственный источник истины? Откуда ViewModel должна получить свое состояние? Откуда она знает что модель изменилась? Интересные вопросы.
 
  
+#### Angular
+
+Angular описывает data-binding на условиях хранения модели и представления синхронизированными. Из документации: 
+
+![](http://firstdoit.com/content/images/2015/05/Two_Way_Data_Binding.png)
+
+Но... должно представление общаться с моделью напрямую? Они тесно связаны?
+
+В любом случае, давайте посмотрим на hello world:
+
+`// View (a template) 
+<div ng-controller="HelloController as hello">  
+  <label>Name:</label>
+  <input type="text" ng-model="hello.firstName">
+  <input type="text" ng-model="hello.lastName">
+  <h1>Hello {{hello.fullName()}}!</h1>
+</div>
+
+// Controller 
+angular.module('helloApp', [])  
+.controller('HelloController', function() {
+  var hello = this;
+  hello.fullName = function() {
+    return hello.firstName + hello.lastName;
+  };
+});`
+
+Из этого примера, похоже что контроллер имеет состояние и ведет себя как модель, или, возможно, как ViewModel? Предполагая, что модель находится в другом месте, как она синхронизируется с контроллером?
+
+Моя голово начинает немного болеть.
 
 
 
